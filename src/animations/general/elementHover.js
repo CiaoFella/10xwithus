@@ -3,33 +3,44 @@ import { gsap } from '../../vendor.js'
 let ctx
 
 function init() {
-  const visuals = document.querySelectorAll('[anm-hover-element=wrap]')
+  const sections = document.querySelectorAll('[anm-hover-element=section]')
 
-  if (!visuals.length) return
+  if (!sections.length && sections.length > 1) return
 
-  visuals.forEach(visual => {
-    const inner = visual.querySelector('[anm-hover-element=inner]')
-    const iconsWrap = visual.querySelector('[anm-hover-element=icons]')
-    const icons = iconsWrap.children
+  sections.forEach(section => {
+    const visuals = section.querySelectorAll('[anm-hover-element=wrap]')
 
-    const tl = gsap.timeline({ defaults: { duration: 1, ease: 'expo.inOut' }, paused: true })
+    if (!visuals.length) return
 
-    tl.to(inner, { scale: 1.05 })
-    tl.fromTo(iconsWrap, { scale: 1, autoAlpha: 0 }, { scale: 1.1, autoAlpha: 1 }, '<')
+    visuals.forEach(visual => {
+      const inner = visual.querySelector('[anm-hover-element=inner]')
+      const iconsWrap = visual.querySelector('[anm-hover-element=icons]')
+      const icons = iconsWrap.children
+      const otherVisuals = [...visuals].filter(v => v !== visual).map(v => v.querySelector('[anm-hover-element=inner]'))
 
-    let hoverTl
+      // Set initial state for icons
+      gsap.set(iconsWrap, { autoAlpha: 0 })
 
-    visual.addEventListener('mouseenter', () => {
-      tl.play()
-      hoverTl = gsap.timeline()
-      hoverTl.fromTo(icons, { rotation: 0 }, { rotation: 360, ease: 'expo.inOut', duration: 2, stagger: 0.1, repeat: -1, repeatDelay: 0.5 })
-    })
+      let hoverTl
 
-    visual.addEventListener('mouseleave', () => {
-      tl.reverse()
-      if (hoverTl) {
-        hoverTl.kill()
-      }
+      visual.addEventListener('mouseenter', () => {
+        gsap.to(inner, { scale: 1.05, duration: 1, ease: 'expo.inOut' })
+        gsap.to(otherVisuals, { scale: 0.95, duration: 1, ease: 'expo.inOut' })
+        gsap.to(iconsWrap, { scale: 1.1, autoAlpha: 1, duration: 1, ease: 'expo.inOut' })
+
+        hoverTl = gsap.timeline()
+        hoverTl.fromTo(icons, { rotation: 0 }, { rotation: 360, ease: 'expo.inOut', duration: 2, stagger: 0.1, repeat: -1, repeatDelay: 0.5 })
+      })
+
+      visual.addEventListener('mouseleave', () => {
+        gsap.to(inner, { scale: 1, duration: 1, ease: 'expo.inOut' })
+        gsap.to(otherVisuals, { scale: 1, duration: 1, ease: 'expo.inOut' })
+        gsap.to(iconsWrap, { scale: 1, autoAlpha: 0, duration: 1, ease: 'expo.inOut' })
+
+        if (hoverTl) {
+          hoverTl.kill()
+        }
+      })
     })
   })
 }

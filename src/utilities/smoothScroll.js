@@ -1,39 +1,18 @@
-import { Lenis } from '../vendor.js'
+import { LocomotiveScroll } from '../vendor.js'
 
-const lenis = new Lenis({
+const locomotiveScroll = new LocomotiveScroll({
+  wrapper: window,
+  content: document.documentElement,
   lerp: 0.1,
-  wheelMultiplier: 0.7,
+  duration: 1.2,
+  orientation: 'vertical',
   gestureOrientation: 'vertical',
-  normalizeWheel: false,
+  smoothWheel: true,
   smoothTouch: false,
-})
-function raf(time) {
-  lenis.raf(time)
-  requestAnimationFrame(raf)
-}
-requestAnimationFrame(raf)
-
-document.querySelectorAll('[data-lenis-start]').forEach(function (element) {
-  element.addEventListener('click', function () {
-    lenis.start()
-  })
+  wheelMultiplier: 1,
+  touchMultiplier: 2,
+  normalizeWheel: true,
+  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
 })
 
-document.querySelectorAll('[data-lenis-stop]').forEach(function (element) {
-  element.addEventListener('click', function () {
-    lenis.stop()
-  })
-})
-
-document.querySelectorAll('[data-lenis-toggle]').forEach(function (element) {
-  element.addEventListener('click', function () {
-    element.classList.toggle('stop-scroll')
-    if (element.classList.contains('stop-scroll')) {
-      lenis.stop()
-    } else {
-      lenis.start()
-    }
-  })
-})
-
-export default lenis
+export default locomotiveScroll

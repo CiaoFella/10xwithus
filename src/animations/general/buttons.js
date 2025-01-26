@@ -4,7 +4,6 @@ let ctx
 
 function init() {
   const buttons = document.querySelectorAll('[anm-btn-type]')
-  console.log(buttons)
   buttons.forEach(button => {
     const type = button.getAttribute('anm-btn-type')
     const icon = button.querySelector('.g_svg')

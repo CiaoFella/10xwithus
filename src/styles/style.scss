@@ -1,8 +1,14 @@
+
+
+// Animations
 @import './enterPage.scss';
 @import './detail.scss';
 @import './home.scss';
 @import './cursor.scss';
 
+.navigation_contain [data-logo-flip=original]{
+    width: 10%;
+} 
 
 .is-animating {
     position: fixed;
@@ -40,3 +46,8 @@ html.lenis, html.lenis body {
 .lenis.lenis-smooth iframe {
     pointer-events: none;
 }
+
+[data-lenis-prevent] {
+    overflow: auto;
+    height: 100%;
+  }
