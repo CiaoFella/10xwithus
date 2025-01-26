@@ -3,6 +3,7 @@ import { gsap, ScrollTrigger, Flip } from '../../vendor.js'
 let ctx
 
 function init() {
+  //
   //   const section = document.querySelector('[data-logo-flip=section]')
   //   const original = document.querySelector('[data-logo-flip=original]')
   //   const targetWrap = document.querySelector('[data-logo-flip=target-wrap]')
