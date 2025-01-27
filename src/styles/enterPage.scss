@@ -1,2 +1,14 @@
 @use './variables.scss';
 
+[anm-hero=text] .line {
+    transform: translateY(110%);
+    clip-path: variables.$topClipPath;
+}
+
+[anm-hero=logo] > *, [anm-hero=imgs] {
+    transform: translateY(110%);
+}
+
+[anm-nav=wrap] > * {
+    transform: translateY(110%);
+}

@@ -66,9 +66,6 @@ function init() {
           gsap.set(ctas, { opacity: 0, y: '1rem' })
           gsap.set(texts, { paddingLeft: 0 })
 
-          const headlineDelay = newHeadlineSplits.lines.length > 1 ? '>-60%' : '>-50%'
-          console.log(newHeadlineSplits.lines.length)
-
           tl.clear()
             .set(modal, { display: 'block' })
             .to(modal, { opacity: 1, duration: 0.6 })
