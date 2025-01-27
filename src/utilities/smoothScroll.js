@@ -25,16 +25,4 @@ const locomotiveScroll = new LocomotiveScroll({
   touchMultiplier: touchMultiplier,
 })
 
-mm.add(isDesktop, () => {
-  console.log(locomotiveScroll)
-
-  gsap.ticker.add(time => {
-    locomotiveScroll.raf(time * 1000)
-  })
-
-  gsap.ticker.lagSmoothing(0)
-
-  window.locomotiveScroll = locomotiveScroll
-})
-
 export default locomotiveScroll
