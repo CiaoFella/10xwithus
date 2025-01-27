@@ -12,3 +12,9 @@
 [anm-nav=wrap] > * {
     transform: translateY(110%);
 }
+
+@media (max-width: variables.$breakpoint-tablet) {
+    [anm-hero=roller-text] {
+        transform: translateY(20rem);
+    }
+}

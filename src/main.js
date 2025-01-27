@@ -79,7 +79,6 @@ barba.hooks.afterEnter(() => {
 
 barba.hooks.after(data => {
   const pageName = data.next.namespace
-  locomotiveScroll.scrollTo(0, { duration: 0, immediate: true })
   createSplitTypes.init()
   updateCurrentNavLink()
   loadPageModule(pageName)

@@ -15,6 +15,8 @@ function init(namespace) {
   ctx = gsap.context(() => {
     const tl = gsap.timeline({ defaults: { ease: 'expo.inOut', duration: 1.5 } })
 
+    proxy.pageReady = false
+
     // Generate random numbers for the animation
     const randomNumbers1 = gsap.utils.random([2, 3, 4])
     const randomNumbers2 = gsap.utils.random([5, 6, 7])
@@ -45,7 +47,13 @@ function init(namespace) {
       .to('[anm-position="third"] [anm-loader="number-wrap"]', { yPercent: -90 }, '<')
       .to('[anm-position="first"] [anm-loader="number-wrap"]', { yPercent: 0 }, '<')
 
-    tl.to(wrap, { scaleY: 0, transformOrigin: 'top' })
+    tl.to(wrap, {
+      scaleY: 0,
+      transformOrigin: 'top',
+      onComplete: () => {
+        gsap.set(wrap, { display: 'none' })
+      },
+    })
       .to('[anm-loader="number-wrap"]', { y: '-20rem', stagger: 0.05, ease: 'expo.inOut' }, '<')
       .call(() => (proxy.pageReady = true), [], '<+50%')
   })

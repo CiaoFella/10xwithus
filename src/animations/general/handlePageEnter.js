@@ -1,4 +1,4 @@
-import { bottomClipPath, fullClipPath, topClipPath } from '../../utilities/variables.js'
+import { bottomClipPath, fullClipPath, isLandscape, isTablet, topClipPath } from '../../utilities/variables.js'
 import { gsap } from '../../vendor.js'
 
 const mm = gsap.matchMedia()
@@ -10,6 +10,7 @@ export default function handlePageEnterAnimation(currentPage) {
   const textLines = document.querySelectorAll('[anm-hero=text] .line')
   const logoParts = document.querySelector('[anm-hero=logo]').children
   const imgs = document.querySelector('[anm-hero=imgs]')
+  const rollerText = document.querySelectorAll('[anm-hero=roller-text]')
 
   let tl
   const logoFirstChild = logoParts[1]
@@ -22,6 +23,10 @@ export default function handlePageEnterAnimation(currentPage) {
       .to(logoRemainingChildren, { yPercent: -110, stagger: 0.1 }, '<+0.1')
       .to(textLines, { clipPath: fullClipPath, y: 0, stagger: 0.1 }, '<+25%')
       .to(nav.children, { y: 0, stagger: 0.25 }, '<+0.25')
+
+    mm.add(isTablet, () => {
+      tl.to(rollerText, { y: 0, stagger: 0.1 }, '<-0.25')
+    })
   })
 
   return tl
