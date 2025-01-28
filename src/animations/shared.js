@@ -5,6 +5,9 @@ import copyClipboard from './shared/copyClipboard.js'
 import elementHover from './general/elementHover.js'
 import buttons from './general/buttons.js'
 import themeToggle from './general/themeToggle.js'
+import navScroll from './general/navScroll.js'
+import languageToggle from './general/languageToggle.js'
+import elementReveal from './general/elementReveal.js'
 
 function init() {
   hero.init()
@@ -14,6 +17,9 @@ function init() {
   elementHover.init()
   buttons.init()
   themeToggle.init()
+  navScroll.init()
+  languageToggle.init()
+  elementReveal.init()
 }
 
 function cleanup() {
@@ -24,6 +30,9 @@ function cleanup() {
   elementHover.cleanup()
   buttons.cleanup()
   themeToggle.cleanup()
+  navScroll.cleanup()
+  languageToggle.cleanup()
+  elementReveal.cleanup()
 }
 
 export default {

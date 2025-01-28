@@ -4,15 +4,11 @@ import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
 let ctx
 
 function init() {
-  const section = document.querySelector('[data-footer=section]')
+  const section = document.querySelector('[anm-footer=section]')
 
   if (section) {
-    const target = section.querySelector('[data-footer=scroll-target]')
-    const button = section.querySelector('[data-button=footer]')
-    const elements = section.querySelectorAll('[data-footer=element]')
-    const paragraph = section.querySelector('[data-footer=paragraph]')
-
-    const paragraphSplit = new SplitType(paragraph, { types: 'lines' })
+    const target = section.querySelector('[anm-footer=scroll-target]')
+    const elements = section.querySelectorAll('[anm-footer=element]')
 
     ctx = gsap.context(() => {
       const scrubTl = gsap.timeline()
@@ -34,17 +30,9 @@ function init() {
         toggleActions: 'none play none reset',
       })
 
-      scrubTl.from(target, { yPercent: -50, ease: 'power2.out', duration: 1 })
+      scrubTl.from(target, { yPercent: -25, scale: 0.9, ease: 'linear', duration: 1 })
 
-      enterTl
-        .from(elements, { yPercent: 125, stagger: 0.025 })
-        .fromTo(
-          paragraphSplit.lines,
-          { yPercent: 50, clipPath: topClipPath },
-          { yPercent: 0, clipPath: fullClipPath, stagger: 0.1 },
-          '<'
-        )
-        .fromTo(button, { opacity: 0 }, { opacity: 1 }, '<')
+      enterTl.from(elements, { yPercent: 200, stagger: 0.1 })
     })
   }
 }

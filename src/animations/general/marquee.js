@@ -4,73 +4,86 @@ let ctx
 let animation
 
 function init() {
-  const marquee = document.querySelector('[anm-marquee="wrap"]')
-  if (!marquee) {
-    return
-  }
-  const duration = parseInt(marquee.getAttribute('duration'), 10) || 5
-  const marqueeContent = marquee.querySelector('[anm-marquee="content"]')
-  if (!marqueeContent) {
-    return
-  }
+  document.querySelectorAll('[data-marquee-scroll-direction-target]').forEach(marquee => {
+    // Query marquee elements
+    const marqueeContent = marquee.querySelector('[data-marquee-collection-target]')
+    const marqueeScroll = marquee.querySelector('[data-marquee-scroll-target]')
+    if (!marqueeContent || !marqueeScroll) return
 
-  const marqueeContentClone = marqueeContent.cloneNode(true)
-  marquee.append(marqueeContentClone)
+    // Get data attributes
+    const { marqueeSpeed: speed, marqueeDirection: direction, marqueeDuplicate: duplicate, marqueeScrollSpeed: scrollSpeed } = marquee.dataset
 
-  let tween
-  let scrollVelocity = 0
-  const baseSpeed = duration // Store original duration as base speed
+    // Convert data attributes to usable types
+    const marqueeSpeedAttr = parseFloat(speed)
+    const marqueeDirectionAttr = direction === 'right' ? 1 : -1 // 1 for right, -1 for left
+    const duplicateAmount = parseInt(duplicate || 0)
+    const scrollSpeedAttr = parseFloat(scrollSpeed)
+    const speedMultiplier = window.innerWidth < 479 ? 0.25 : window.innerWidth < 991 ? 0.5 : 1
 
-  const playMarquee = () => {
-    let progress = tween ? tween.progress() : 0
-    tween && tween.progress(0).kill()
-    const width = parseInt(getComputedStyle(marqueeContent).getPropertyValue('width'), 10)
-    const gap = parseInt(getComputedStyle(marqueeContent).getPropertyValue('column-gap'), 10)
-    const distanceToTranslate = -1 * (gap + width)
+    let marqueeSpeed = marqueeSpeedAttr * (marqueeContent.offsetWidth / window.innerWidth) * speedMultiplier
 
-    tween = gsap.fromTo(
-      '[anm-marquee="content"]',
-      { x: 0 },
-      {
-        x: distanceToTranslate,
-        duration: baseSpeed,
-        ease: 'none',
-        repeat: -1,
+    // Precompute styles for the scroll container
+    marqueeScroll.style.marginLeft = `${scrollSpeedAttr * -1}%`
+    marqueeScroll.style.width = `${scrollSpeedAttr * 2 + 100}%`
+
+    // Duplicate marquee content
+    if (duplicateAmount > 0) {
+      const fragment = document.createDocumentFragment()
+      for (let i = 0; i < duplicateAmount; i++) {
+        fragment.appendChild(marqueeContent.cloneNode(true))
       }
-    )
+      marqueeScroll.appendChild(fragment)
+    }
 
-    // Create ScrollTrigger
+    // GSAP animation for marquee content
+    const marqueeItems = marquee.querySelectorAll('[data-marquee-collection-target]')
+    const animation = gsap
+      .to(marqueeItems, {
+        xPercent: -100, // Move completely out of view
+        repeat: -1,
+        duration: marqueeSpeed,
+        ease: 'linear',
+      })
+      .totalProgress(0.5)
+
+    // Initialize marquee in the correct direction
+    gsap.set(marqueeItems, { xPercent: marqueeDirectionAttr === 1 ? 100 : -100 })
+    animation.timeScale(marqueeDirectionAttr) // Set correct direction
+    animation.play() // Start animation immediately
+
+    // Set initial marquee status
+    marquee.setAttribute('data-marquee-status', 'normal')
+
+    // ScrollTrigger logic for direction inversion
     ScrollTrigger.create({
       trigger: marquee,
       start: 'top bottom',
       end: 'bottom top',
       onUpdate: self => {
-        // Get scroll velocity and adjust animation speed
-        scrollVelocity = Math.abs(self.getVelocity() / 1000)
-        const speedFactor = 1 + Math.min(scrollVelocity, 4) // Cap the maximum speed
-        tween.timeScale(speedFactor)
+        const isInverted = self.direction === 1 // Scrolling down
+        const currentDirection = isInverted ? -marqueeDirectionAttr : marqueeDirectionAttr
+
+        // Update animation direction and marquee status
+        animation.timeScale(currentDirection)
+        marquee.setAttribute('data-marquee-status', isInverted ? 'normal' : 'inverted')
       },
     })
 
-    tween.progress(progress)
-  }
-  playMarquee()
+    // Extra speed effect on scroll
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: marquee,
+        start: '0% 100%',
+        end: '100% 0%',
+        scrub: 0,
+      },
+    })
 
-  function debounce(func) {
-    var timer
-    return function (event) {
-      if (timer) clearTimeout(timer)
-      timer = setTimeout(
-        () => {
-          func()
-        },
-        500,
-        event
-      )
-    }
-  }
+    const scrollStart = marqueeDirectionAttr === -1 ? scrollSpeedAttr : -scrollSpeedAttr
+    const scrollEnd = -scrollStart
 
-  window.addEventListener('resize', debounce(playMarquee))
+    tl.fromTo(marqueeScroll, { x: `${scrollStart}vw` }, { x: `${scrollEnd}vw`, ease: 'none' })
+  })
 }
 
 function cleanup() {

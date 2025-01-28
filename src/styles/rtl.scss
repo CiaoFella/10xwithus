@@ -1,0 +1,23 @@
+[dir=rtl] {
+    .page_wrap, .u-text-style-large, .u-text-style-huge, .u-text-style-main, .u-text-style-small {
+        font-family: var(--font--arabic-body-family);
+    }
+
+    .u-text-style-display, .u-text-style-h1, .u-text-style-h2, .u-text-style-h3, .u-text-style-h4, .u-text-style-h5, .u-text-style-h6, h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font--arabic-headline-family);
+    }
+
+    .u-text-style-display {
+        line-break: none;
+    }
+
+    [anm-btn=icon-wrap] {
+        right: auto;
+        left: -1.25rem
+    }
+
+    .footer_upper_cta_text.u-text-style-h1.u-weight-bold.u-text-align-center.is-large {
+        font-size: min(var(--size--8rem),7cqw)
+    }
+}
+

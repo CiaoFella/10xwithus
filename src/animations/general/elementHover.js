@@ -18,7 +18,6 @@ function init() {
       const icons = iconsWrap.children
       const otherVisuals = [...visuals].filter(v => v !== visual).map(v => v.querySelector('[anm-hover-element=inner]'))
 
-      // Set initial state for icons
       gsap.set(iconsWrap, { autoAlpha: 0 })
 
       let hoverTl

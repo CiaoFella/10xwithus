@@ -6,7 +6,7 @@ const mm = gsap.matchMedia()
 let ctx
 
 export default function handlePageEnterAnimation(currentPage) {
-  const nav = document.querySelector('[anm-nav=wrap]')
+  const nav = document.querySelector('[anm-nav=inner]')
   const textLines = document.querySelectorAll('[anm-hero=text] .line')
   const logoParts = document.querySelector('[anm-hero=logo]').children
   const imgs = document.querySelector('[anm-hero=imgs]')
