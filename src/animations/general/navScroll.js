@@ -1,10 +1,11 @@
 import { gsap, ScrollTrigger } from '../../vendor.js'
 
-let backgroundCtx, navbarCtx
+let backgroundCtx, navbarCtx, transparencyCtx
 
 function init() {
   const nav = document.querySelector('[anm-nav=wrap]')
   const trigger = document.querySelector('[anm-nav=scroll-trigger]')
+  const transparentTrigger = document.querySelector('[anm-nav=transparent-trigger]')
   if (!nav) return
 
   // Initial animation to show navbar
@@ -27,6 +28,11 @@ function init() {
     paused: true,
   })
 
+  const transparencyTl = gsap.timeline({
+    defaults: { duration: 0.3, ease: 'power2.inOut' },
+    paused: true,
+  })
+
   backgroundTl.to(nav, {
     backgroundColor: bodyBackgroundColor,
   })
@@ -34,6 +40,11 @@ function init() {
   navbarTl.fromTo(nav, { yPercent: -100 }, { yPercent: 0 })
 
   positionTl.to(nav, { yPercent: -100 }).to(nav, { position: 'fixed', top: 0 })
+
+  transparencyTl.to(nav, {
+    onStart: () => nav.classList.add('is--transparent'),
+    onReverseComplete: () => nav.classList.remove('is--transparent'),
+  })
 
   backgroundCtx = ScrollTrigger.create({
     trigger: trigger,
@@ -65,6 +76,19 @@ function init() {
     },
   })
 
+  transparencyCtx = ScrollTrigger.create({
+    trigger: transparentTrigger,
+    start: 'top top',
+    end: 'top 5rem',
+    onUpdate: self => {
+      if (self.progress === 1) {
+        transparencyTl.play()
+      } else if (self.progress === 0) {
+        transparencyTl.reverse()
+      }
+    },
+  })
+
   setTimeout(() => {
     ScrollTrigger.create({
       trigger: nav,
@@ -83,6 +107,7 @@ function init() {
 function cleanup() {
   backgroundCtx && backgroundCtx.revert()
   navbarCtx && navbarCtx.revert()
+  transparencyCtx && transparencyCtx.revert()
 }
 
 export default {

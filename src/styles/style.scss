@@ -52,3 +52,17 @@ html.lenis, html.lenis body {
     overflow: auto;
     height: 100%;
   }
+
+[anm-nav=wrap].is--transparent {
+    background-color: var(--swatch--transparent) !important;
+    color: var(--swatch--dark);
+
+    [data-theme=invert] {
+        --theme--background: var(--swatch--dark);
+        color: var(--swatch--light);
+    }
+
+    .underline-link::before, .underline-link::after {
+        background-color: var(--swatch--dark);
+    }
+}
