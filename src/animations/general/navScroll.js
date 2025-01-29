@@ -76,18 +76,21 @@ function init() {
     },
   })
 
-  transparencyCtx = ScrollTrigger.create({
-    trigger: transparentTrigger,
-    start: 'top top',
-    end: 'top 1rem',
-    onUpdate: self => {
-      if (self.progress === 1) {
-        transparencyTl.play()
-      } else if (self.progress === 0) {
-        transparencyTl.reverse()
-      }
-    },
-  })
+  setTimeout(() => {
+    transparencyCtx = ScrollTrigger.create({
+      trigger: transparentTrigger,
+      start: 'top 2.5rem',
+      end: 'top 2.5rem',
+      markers: true,
+      onUpdate: self => {
+        if (self.progress === 1) {
+          transparencyTl.play()
+        } else if (self.progress === 0) {
+          transparencyTl.reverse()
+        }
+      },
+    })
+  }, 500)
 
   setTimeout(() => {
     ScrollTrigger.create({
