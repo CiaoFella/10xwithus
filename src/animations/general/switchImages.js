@@ -4,26 +4,11 @@ let ctx
 
 function init() {
   const switchImages = document.querySelectorAll('[data-switch-images]')
+
   switchImages.forEach(switchImage => {
     const images = Array.from(switchImage.children)
     let currentIndex = 0
     let interval
-
-    const attribute = switchImage.getAttribute('data-switch-images')
-
-    let dimensions
-    if (attribute) {
-      const reference = document.querySelector(`[data-switch-images-reference=${attribute}]`)
-      if (reference) {
-        dimensions = reference.getBoundingClientRect()
-      }
-    }
-    if (!dimensions) {
-      dimensions = switchImage.getBoundingClientRect()
-    }
-
-    switchImage.style.width = `${dimensions.width}px`
-    switchImage.style.height = `${dimensions.height}px`
 
     images.forEach((img, index) => {
       img.style.position = 'absolute'

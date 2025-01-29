@@ -1,6 +1,4 @@
 import { gsap } from '../../vendor.js'
-import locomotiveScroll from '../../utilities/smoothScroll.js'
-import handlePageEnterAnimation from './handlePageEnter.js'
 import { proxy } from '../../utilities/pageReadyListener.js'
 
 let ctx
@@ -13,7 +11,7 @@ function init(namespace) {
   const numberOuter = '[anm-loader="numbers-outer"]'
 
   ctx = gsap.context(() => {
-    const tl = gsap.timeline({ defaults: { ease: 'expo.inOut', duration: 1.5 } })
+    const tl = gsap.timeline({ defaults: { ease: 'expo.inOut', duration: 0.1 } })
 
     proxy.pageReady = false
 
@@ -24,6 +22,8 @@ function init(namespace) {
     const randomNumbers4 = gsap.utils.random([7, 8, 9])
 
     // Calculate the distance between elements
+    const wrapEl = document.querySelector(wrap)
+    if (!wrapEl) return
     const preloaderEl = document.querySelector(preloaderContent)
     const numberOuterEl = document.querySelector(numberOuter)
     const distance = numberOuterEl.getBoundingClientRect().top - preloaderEl.getBoundingClientRect().top

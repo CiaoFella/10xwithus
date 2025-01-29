@@ -8,6 +8,9 @@ import themeToggle from './general/themeToggle.js'
 import navScroll from './general/navScroll.js'
 import languageToggle from './general/languageToggle.js'
 import elementReveal from './general/elementReveal.js'
+import loopingWords from './general/loopingWords.js'
+import switchImages from './general/switchImages.js'
+import textReveal from './general/textReveal.js'
 
 function init() {
   hero.init()
@@ -20,6 +23,9 @@ function init() {
   navScroll.init()
   languageToggle.init()
   elementReveal.init()
+  loopingWords.init()
+  switchImages.init()
+  textReveal.init()
 }
 
 function cleanup() {
@@ -33,6 +39,9 @@ function cleanup() {
   navScroll.cleanup()
   languageToggle.cleanup()
   elementReveal.cleanup()
+  loopingWords.cleanup()
+  switchImages.cleanup()
+  textReveal.cleanup()
 }
 
 export default {

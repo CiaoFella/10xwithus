@@ -1,5 +1,11 @@
-document.addEventListener('DOMContentLoaded', function () {
+import { gsap } from '../../vendor.js'
+
+let ctx
+
+function init() {
   const wordLists = document.querySelectorAll('[data-looping-words-list]')
+
+  if (wordLists.length === 0) return
   wordLists.forEach(wordList => {
     const words = Array.from(wordList.children)
     const totalWords = words.length
@@ -22,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
       currentIndex++
       gsap.to(wordList, {
         yPercent: -wordHeight * currentIndex,
-        duration: 1.2,
-        ease: 'elastic.out(1, 0.85)',
+        duration: 1,
+        ease: 'expo.out',
         onStart: updateEdgeWidth,
         onComplete: function () {
           if (currentIndex >= totalWords - 3) {
@@ -36,6 +42,15 @@ document.addEventListener('DOMContentLoaded', function () {
       })
     }
     //   updateEdgeWidth()
-    gsap.timeline({ repeat: -1, delay: 1 }).call(moveWords).to({}, { duration: 2 }).repeat(-1)
+    gsap.timeline({ repeat: -1, delay: 1 }).call(moveWords).to({}, { duration: 1.5 }).repeat(-1)
   })
-})
+}
+
+function cleanup() {
+  ctx && ctx.revert()
+}
+
+export default {
+  init,
+  cleanup,
+}

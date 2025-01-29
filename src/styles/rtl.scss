@@ -9,6 +9,11 @@
 
     .u-text-style-display {
         line-break: none;
+        line-height: 1.2;
+    }
+
+    [anm-hero="roller-text"] {
+        height: 1.25em;
     }
 
     [anm-btn=icon-wrap] {

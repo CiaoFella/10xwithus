@@ -1,4 +1,4 @@
-import { LocomotiveScroll, ScrollTrigger } from '../vendor.js'
+import { LocomotiveScroll, ScrollTrigger, gsap } from '../vendor.js'
 import { isDesktop, isTablet } from './variables.js'
 
 const mm = gsap.matchMedia()
@@ -24,7 +24,5 @@ const locomotiveScroll = new LocomotiveScroll({
   wheelMultiplier: wheelMultiplier,
   touchMultiplier: touchMultiplier,
 })
-
-console.log(lerp)
 
 export default locomotiveScroll

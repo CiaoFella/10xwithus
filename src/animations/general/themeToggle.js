@@ -35,7 +35,7 @@ function setTheme(theme, pageWrap) {
 function init() {
   const pageWrap = document.querySelector('.page_wrap')
   const themeToggle = document.querySelector('[anm-toggle=theme]')
-  const themePath = document.querySelector('[anm-toggle=theme-path]')
+  if (!themeToggle) return
 
   setTheme(getPreferredTheme(), pageWrap)
 

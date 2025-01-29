@@ -5,7 +5,7 @@
     clip-path: variables.$topClipPath;
 }
 
-[anm-hero=logo] > *, [anm-hero=imgs] {
+[data-barba-namespace="home"] [anm-hero=logo] > *, [data-barba-namespace="home"] [anm-hero=imgs] {
     transform: translateY(110%);
 }
 

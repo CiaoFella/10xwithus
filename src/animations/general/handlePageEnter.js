@@ -19,7 +19,7 @@ export default function handlePageEnterAnimation(currentPage) {
   ctx = gsap.context(() => {
     tl = gsap.timeline({ defaults: { duration: 1.5, ease: 'expo.out' } })
     tl.to(logoFirstChild, { yPercent: -110 }, 0)
-      .to(imgs, { yPercent: -110 }, '<+0.1')
+      .to(imgs, { y: '0' }, '<+0.1')
       .to(logoRemainingChildren, { yPercent: -110, stagger: 0.1 }, '<+0.1')
       .to(textLines, { clipPath: fullClipPath, y: 0, stagger: 0.1 }, '<+25%')
       .to(nav.children, { y: 0, stagger: 0.25 }, '<+0.25')
