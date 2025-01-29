@@ -79,7 +79,7 @@ function init() {
   transparencyCtx = ScrollTrigger.create({
     trigger: transparentTrigger,
     start: 'top top',
-    end: 'top 5rem',
+    end: 'top 1rem',
     onUpdate: self => {
       if (self.progress === 1) {
         transparencyTl.play()

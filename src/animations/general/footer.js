@@ -30,7 +30,7 @@ function init() {
         toggleActions: 'none play none reset',
       })
 
-      scrubTl.from(target, { yPercent: -25, scale: 0.9, ease: 'linear', duration: 1 })
+      scrubTl.from(target, { yPercent: 25, scale: 0.9, ease: 'linear', duration: 1 })
 
       enterTl.from(elements, { yPercent: 200, stagger: 0.1 })
     })

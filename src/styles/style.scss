@@ -66,3 +66,7 @@ html.lenis, html.lenis body {
         background-color: var(--swatch--dark);
     }
 }
+
+[data-theme] {
+    transition: background-color 0.75s cubic-bezier(.215, .61, .355, 1), color 0.75s cubic-bezier(.215, .61, .355, 1);
+}
