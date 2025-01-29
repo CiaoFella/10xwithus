@@ -8,13 +8,13 @@ let wheelMultiplier
 let touchMultiplier
 
 mm.add(isTablet, () => {
-  lerp = 0.95
+  lerp = 0.975
   wheelMultiplier = 0
   touchMultiplier = 0
 })
 
 mm.add(isDesktop, () => {
-  lerp = 0.5
+  lerp = 0.2
   wheelMultiplier = 0.7
   touchMultiplier = 0
 })
@@ -24,5 +24,7 @@ const locomotiveScroll = new LocomotiveScroll({
   wheelMultiplier: wheelMultiplier,
   touchMultiplier: touchMultiplier,
 })
+
+console.log(lerp)
 
 export default locomotiveScroll
