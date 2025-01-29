@@ -81,7 +81,6 @@ function init() {
       trigger: transparentTrigger,
       start: 'top 2.5rem',
       end: 'top 2.5rem',
-      markers: true,
       onUpdate: self => {
         if (self.progress === 1) {
           transparencyTl.play()
