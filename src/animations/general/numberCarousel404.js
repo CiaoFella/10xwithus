@@ -7,13 +7,18 @@ function init() {
     const allCols = document.querySelectorAll('[anm-404="col"]')
 
     allCols.forEach((col, index) => {
-      const firstChild = col.firstElementChild
-      const copyChild = firstChild.cloneNode(true)
-      col.appendChild(copyChild)
+      // Get both numbers from the column
+      const firstNum = col.firstElementChild
+      const secondNum = firstNum.nextElementSibling
+      const cloneFirst = firstNum.cloneNode(true)
+      const cloneSecond = secondNum.cloneNode(true)
+      col.appendChild(cloneFirst)
+      col.appendChild(cloneSecond)
 
+      // No need to clone, we already have both numbers
       const tl = gsap.timeline({
         repeat: -1,
-        repeatDelay: 0.05,
+        repeatDelay: 0.025,
         delay: index * 0.05,
       })
 
