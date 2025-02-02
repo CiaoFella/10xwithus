@@ -43,7 +43,6 @@ function init() {
       const isRTL = document.dir === 'rtl'
       const startXPercent = isRTL ? -25 : 25
       const startClipPath = isRTL ? leftSideClipPath : rightSideClipPath
-      console.log(isRTL, startXPercent, startClipPath)
 
       gsap.set(modal, { display: 'none', opacity: 0 })
       gsap.set(modalBg, { opacity: 0 })
