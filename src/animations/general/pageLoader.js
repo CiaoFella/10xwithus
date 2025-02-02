@@ -1,5 +1,6 @@
 import { gsap } from '../../vendor.js'
 import { proxy } from '../../utilities/pageReadyListener.js'
+import locomotiveScroll from '../../utilities/smoothScroll.js'
 
 let ctx
 
@@ -13,35 +14,35 @@ function init(namespace) {
   ctx = gsap.context(() => {
     const tl = gsap.timeline({ defaults: { ease: 'expo.inOut', duration: 1.5 } })
 
-    proxy.pageReady = false
+    window.onbeforeunload = function () {
+      locomotiveScroll.scrollTo(0, { immediate: true })
+    }
 
-    // Generate random numbers for the animation
+    setTimeout(() => {
+      proxy.pageReady = false
+    }, 50)
+
     const randomNumbers1 = gsap.utils.random([2, 3, 4])
     const randomNumbers2 = gsap.utils.random([5, 6, 7])
     const randomNumbers3 = gsap.utils.random([1, 5])
     const randomNumbers4 = gsap.utils.random([7, 8, 9])
 
-    // Calculate the distance between elements
     const wrapEl = document.querySelector(wrap)
     if (!wrapEl) return
     const preloaderEl = document.querySelector(preloaderContent)
     const numberOuterEl = document.querySelector(numberOuter)
     const distance = numberOuterEl.getBoundingClientRect().top - preloaderEl.getBoundingClientRect().top
-    const moveStep = -(distance / 3) // Divide by 3 for three equal steps
+    const moveStep = -(distance / 3)
 
-    // Initial states
     tl.set(numberOuter, { opacity: 1 }).set('[anm-loader="number-wrap"]', { yPercent: -90 }).set(numberOuter, { y: 0 })
 
-    // First step animation
     tl.to('[anm-position="second"] [anm-loader="number-wrap"]', { yPercent: (randomNumbers1 - 1) * -10 })
       .to(numberOuter, { y: moveStep }, '<')
       .to('[anm-position="third"] [anm-loader="number-wrap"]', { yPercent: (randomNumbers3 - 1) * -10 }, '<')
 
-    // Second step animation
     tl.to('[anm-position="second"] [anm-loader="number-wrap"]', { yPercent: (randomNumbers2 - 1) * -10 })
     tl.to(numberOuter, { y: moveStep * 2 }, '<').to('[anm-position="third"] [anm-loader="number-wrap"]', { yPercent: (randomNumbers4 - 1) * -10 }, '<')
 
-    // Final step animation
     tl.to('[anm-position="second"] [anm-loader="number-wrap"]', { yPercent: -90 })
       .to(numberOuter, { y: moveStep * 3 }, '<')
       .to('[anm-position="third"] [anm-loader="number-wrap"]', { yPercent: -90 }, '<')
