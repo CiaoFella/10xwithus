@@ -1,6 +1,6 @@
 import { gsap, SplitType } from '../../vendor.js'
 import locomotiveScroll from '../../utilities/smoothScroll.js'
-import { fullClipPath, rightClipPath, rightSideClipPath } from '../../utilities/variables.js'
+import { fullClipPath, rightClipPath, rightSideClipPath, leftSideClipPath } from '../../utilities/variables.js'
 
 let ctx
 
@@ -40,9 +40,14 @@ function init() {
         defaults: { duration: 1, ease: 'expo.inOut', rotate: 0.001 },
       })
 
+      const isRTL = document.dir === 'rtl'
+      const startXPercent = isRTL ? -25 : 25
+      const startClipPath = isRTL ? leftSideClipPath : rightSideClipPath
+      console.log(isRTL, startXPercent, startClipPath)
+
       gsap.set(modal, { display: 'none', opacity: 0 })
       gsap.set(modalBg, { opacity: 0 })
-      gsap.set(drawer, { xPercent: 25, visibility: 'visible', clipPath: rightSideClipPath })
+      gsap.set(drawer, { xPercent: startXPercent, visibility: 'visible', clipPath: startClipPath })
       gsap.set(drawerItems, { display: 'none' })
 
       triggers.forEach(trigger => {

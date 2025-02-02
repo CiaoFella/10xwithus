@@ -18,10 +18,21 @@ function init() {
           break
         case 'arrow':
           const arrowClone = icon.cloneNode(true)
-          gsap.set(arrowClone, { position: 'absolute', bottom: '-125%', left: '-125%' })
+          const isRTL = document.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl'
+
+          // For RTL, position the clone on the right side instead of left
+          gsap.set(arrowClone, {
+            position: 'absolute',
+            bottom: '-125%',
+            [isRTL ? 'right' : 'left']: '-125%',
+          })
           iconWrap.appendChild(arrowClone)
 
-          tl.to([icon, arrowClone], { yPercent: -125, xPercent: 125 })
+          // For RTL, move towards top-left (-x) instead of top-right (+x)
+          tl.to([icon, arrowClone], {
+            yPercent: -125,
+            xPercent: isRTL ? -125 : 125,
+          })
           break
       }
 

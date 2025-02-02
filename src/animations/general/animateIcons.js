@@ -23,7 +23,6 @@ function init() {
       tl.play()
     })
     wrap.addEventListener('mouseleave', () => {
-      // Complete current animation and smoothly return to start
       gsap.to(icons, {
         scale: 1,
         duration: 0.5,

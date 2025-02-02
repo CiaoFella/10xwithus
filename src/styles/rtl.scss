@@ -1,28 +1,77 @@
-[dir=rtl] {
-    .page_wrap, .u-text-style-large, .u-text-style-huge, .u-text-style-main, .u-text-style-small {
-        font-family: var(--font--arabic-body-family);
+@use './variables.scss';
+
+[dir='rtl'] {
+  .page_wrap,
+  .u-text-style-large,
+  .u-text-style-huge,
+  .u-text-style-main,
+  .u-text-style-small {
+    font-family: var(--font--arabic-body-family);
+    line-height: 1.5;
+  }
+
+  .u-text-style-display,
+  .u-text-style-h1,
+  .u-text-style-h2,
+  .u-text-style-h3,
+  .u-text-style-h4,
+  .u-text-style-h5,
+  .u-text-style-h6,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font--arabic-headline-family);
+    line-height: 1.4;
+  }
+
+  .u-text-style-display {
+    line-break: none;
+    line-height: 1.2;
+    font-weight: 700;
+    text-transform: initial;
+  }
+
+  [anm-hero='roller-text'] {
+    height: 1.25em;
+    margin: 1rem 0;
+  }
+
+  [anm-btn='icon-wrap'] {
+    right: auto;
+    left: -1.25rem;
+  }
+
+  .footer_upper_cta_text.u-text-style-h1.u-weight-bold.u-text-align-center.is-large {
+    font-size: min(var(--size--8rem), 7cqw);
+  }
+
+  // Drawer
+  [data-drawer-element='drawer'] {
+    left: var(--size--1-5rem);
+    right: auto;
+
+    [data-drawer-element='close'] {
+      left: var(--size--2rem);
+      right: auto;
     }
 
-    .u-text-style-display, .u-text-style-h1, .u-text-style-h2, .u-text-style-h3, .u-text-style-h4, .u-text-style-h5, .u-text-style-h6, h1, h2, h3, h4, h5, h6 {
-        font-family: var(--font--arabic-headline-family);
+    @media (max-width: variables.$breakpoint-tablet) {
+      right: var(--size--1-5rem);
     }
+  }
 
-    .u-text-style-display {
-        line-break: none;
-        line-height: 1.2;
+  // Buttons
+  [anm-btn-type='arrow'] {
+    svg {
+      transform: rotate(-90deg);
     }
+  }
 
-    [anm-hero="roller-text"] {
-        height: 1.25em;
-    }
-
-    [anm-btn=icon-wrap] {
-        right: auto;
-        left: -1.25rem
-    }
-
-    .footer_upper_cta_text.u-text-style-h1.u-weight-bold.u-text-align-center.is-large {
-        font-size: min(var(--size--8rem),7cqw)
-    }
+  // Footer Email
+  [anm-footer='email'] {
+    font-family: var(--font--secondary-family);
+  }
 }
-

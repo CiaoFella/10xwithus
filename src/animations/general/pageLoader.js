@@ -11,7 +11,7 @@ function init(namespace) {
   const numberOuter = '[anm-loader="numbers-outer"]'
 
   ctx = gsap.context(() => {
-    const tl = gsap.timeline({ defaults: { ease: 'expo.inOut', duration: 1.5 } })
+    const tl = gsap.timeline({ defaults: { ease: 'expo.inOut', duration: 0.1 } })
 
     proxy.pageReady = false
 
