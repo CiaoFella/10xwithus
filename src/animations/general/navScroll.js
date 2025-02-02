@@ -1,11 +1,12 @@
 import { gsap, ScrollTrigger } from '../../vendor.js'
 
-let backgroundCtx, navbarCtx, transparencyCtx
+let backgroundCtx, navbarCtx, transparencyCtx, greyBgCtx
 
 function init() {
   const nav = document.querySelector('[anm-nav=wrap]')
   const trigger = document.querySelector('[anm-nav=scroll-trigger]')
   const transparentTrigger = document.querySelector('[anm-nav=transparent-trigger]')
+  const greyTrigger = document.querySelector('[anm-nav-trigger=grey]')
   if (!nav) return
 
   // Initial animation to show navbar
@@ -33,6 +34,11 @@ function init() {
     paused: true,
   })
 
+  const greyBgTl = gsap.timeline({
+    defaults: { duration: 0.3, ease: 'power2.inOut' },
+    paused: true,
+  })
+
   backgroundTl.to(nav, {
     backgroundColor: bodyBackgroundColor,
   })
@@ -44,6 +50,16 @@ function init() {
   transparencyTl.to(nav, {
     onStart: () => nav.classList.add('is--transparent'),
     onReverseComplete: () => nav.classList.remove('is--transparent'),
+  })
+
+  greyBgTl.to(nav, {
+    backgroundColor: 'var(--swatch--grey-2)',
+    onStart: () => nav.classList.remove('is--transparent'),
+    onReverseComplete: () => {
+      if (transparencyCtx && transparencyCtx.progress === 1) {
+        nav.classList.add('is--transparent')
+      }
+    },
   })
 
   backgroundCtx = ScrollTrigger.create({
@@ -77,18 +93,37 @@ function init() {
   })
 
   setTimeout(() => {
-    transparencyCtx = ScrollTrigger.create({
-      trigger: transparentTrigger,
-      start: 'top 2.5rem',
-      end: 'top 2.5rem',
-      onUpdate: self => {
-        if (self.progress === 1) {
-          transparencyTl.play()
-        } else if (self.progress === 0) {
-          transparencyTl.reverse()
-        }
-      },
-    })
+    if (transparentTrigger) {
+      transparencyCtx = ScrollTrigger.create({
+        trigger: transparentTrigger,
+        start: 'top 2.5rem',
+        end: 'top 2.5rem',
+        onUpdate: self => {
+          if (self.progress === 1) {
+            transparencyTl.play()
+          } else if (self.progress === 0) {
+            transparencyTl.reverse()
+          }
+        },
+      })
+    }
+  }, 500)
+
+  setTimeout(() => {
+    if (greyTrigger) {
+      greyBgCtx = ScrollTrigger.create({
+        trigger: greyTrigger,
+        start: 'top 2.5rem',
+        end: 'top 2.5rem',
+        onUpdate: self => {
+          if (self.progress === 1) {
+            greyBgTl.play()
+          } else if (self.progress === 0) {
+            greyBgTl.reverse()
+          }
+        },
+      })
+    }
   }, 500)
 
   setTimeout(() => {
@@ -110,6 +145,7 @@ function cleanup() {
   backgroundCtx && backgroundCtx.revert()
   navbarCtx && navbarCtx.revert()
   transparencyCtx && transparencyCtx.revert()
+  greyBgCtx && greyBgCtx.revert()
 }
 
 export default {
