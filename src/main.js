@@ -69,10 +69,10 @@ async function getCountry() {
     const country = data.country_code
     const excludedCountries = ['AE', 'SA', 'QA', 'EG']
 
-    console.log(country)
-
     if (!excludedCountries.includes(country)) {
       document.querySelector('#cookie-component').style.display = 'block'
+    } else {
+      document.querySelector('#cookie-component').style.display = 'none'
     }
   } catch (error) {
     document.querySelector('#cookie-component').style.display = 'block'
