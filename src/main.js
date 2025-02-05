@@ -62,6 +62,23 @@ mm.add(isDesktop, () => {
   cursor.init()
   magneticCursor()
 })
+async function getCountry() {
+  try {
+    const response = await fetch('https://ipwhois.app/json/')
+    const data = await response.json()
+    const country = data.country_code
+    const excludedCountries = ['AE', 'SA', 'QA', 'EG']
+
+    console.log(country)
+
+    if (!excludedCountries.includes(country)) {
+      document.querySelector('#cookie-component').style.display = 'block'
+    }
+  } catch (error) {
+    document.querySelector('#cookie-component').style.display = 'block'
+  }
+}
+getCountry()
 
 document.addEventListener('onPageReady', event => {
   if (event.detail === true) {
