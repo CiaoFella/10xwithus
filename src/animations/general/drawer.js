@@ -104,8 +104,8 @@ function init() {
       })
 
       const closeAnimations = () => {
-        tl.timeScale(1.5).reverse()
         locomotiveScroll.start()
+        tl.timeScale(1.5).reverse()
       }
 
       if (closeBtn) {
@@ -115,6 +115,13 @@ function init() {
       if (modalBg) {
         modalBg.addEventListener('click', closeAnimations)
       }
+
+      drawer.addEventListener('click', e => {
+        const btnElement = e.target.closest('[anm-btn-type]')
+        if (btnElement) {
+          closeAnimations()
+        }
+      })
 
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && tl.progress() > 0) {
