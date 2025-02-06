@@ -1,20 +1,21 @@
 @use './variables.scss';
 
-[anm-hero=text] .line {
-    transform: translateY(110%);
-    clip-path: variables.$topClipPath;
+[anm-hero='text'] .line {
+  transform: translateY(110%);
+  clip-path: variables.$topClipPath;
 }
 
-[data-barba-namespace="home"] [anm-hero=logo] > *, [data-barba-namespace="home"] [anm-hero=imgs] {
-    transform: translateY(110%);
+[data-barba-namespace='home'] [anm-hero='logo'] > *,
+[data-barba-namespace='home'] [anm-hero='imgs'] {
+  transform: translateY(110%);
 }
 
-[anm-nav=inner] > * {
-    transform: translateY(110%);
+[anm-nav='inner'] > * {
+  transform: translateY(10rem);
 }
 
 @media (max-width: variables.$breakpoint-tablet) {
-    [anm-hero=roller-text] {
-        transform: translateY(20rem);
-    }
+  [anm-hero='roller-text'] {
+    transform: translateY(20rem);
+  }
 }

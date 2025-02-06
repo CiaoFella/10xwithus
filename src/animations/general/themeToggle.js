@@ -34,8 +34,8 @@ function setTheme(theme, pageWrap) {
 
 function init() {
   const pageWrap = document.querySelector('.page_wrap')
-  const themeToggle = document.querySelector('[anm-toggle=theme]')
-  if (!themeToggle) return
+  const themeToggles = document.querySelectorAll('[anm-toggle=theme]')
+  if (!pageWrap || !themeToggles) return
 
   setTheme(getPreferredTheme(), pageWrap)
 
@@ -45,10 +45,12 @@ function init() {
     }
   })
 
-  themeToggle.addEventListener('click', () => {
-    const currentTheme = pageWrap.dataset.theme
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light'
-    setTheme(newTheme, pageWrap)
+  themeToggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const currentTheme = pageWrap.dataset.theme
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light'
+      setTheme(newTheme, pageWrap)
+    })
   })
 }
 
