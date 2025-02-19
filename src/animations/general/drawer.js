@@ -105,7 +105,7 @@ function init() {
 
       const closeAnimations = () => {
         locomotiveScroll.start()
-        tl.timeScale(1.5).reverse()
+        tl.timeScale(2).reverse()
       }
 
       if (closeBtn) {
