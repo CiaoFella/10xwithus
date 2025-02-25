@@ -5,12 +5,16 @@
   .u-text-style-large,
   .u-text-style-huge,
   .u-text-style-main,
-  .u-text-style-small {
+  .u-text-style-small,
+  p,
+  a,
+  li,
+  span,
+  button {
     font-family: var(--font--arabic-body-family);
     line-height: 1.5;
   }
 
-  .u-text-style-display,
   .u-text-style-h1,
   .u-text-style-h2,
   .u-text-style-h3,
@@ -24,12 +28,12 @@
   h5,
   h6 {
     font-family: var(--font--arabic-headline-family);
-    line-height: 1.4;
+    line-height: 1.4 !important;
   }
 
   .u-text-style-display {
     line-break: none;
-    line-height: 1.2;
+    line-height: 1.2 !important;
     font-weight: 700;
     text-transform: initial;
   }
@@ -42,10 +46,26 @@
   [anm-btn='icon-wrap'] {
     right: auto;
     left: -1.25rem;
+    top: 0.25em;
   }
 
   .footer_upper_cta_text.u-text-style-h1.u-weight-bold.u-text-align-center.is-large {
     font-size: min(var(--size--8rem), 7cqw);
+  }
+
+  // Button icon rtl
+  .btn_main_inner_icon_slot.u-text-style-large {
+    top: 0.5em;
+  }
+
+  // Agency Model is broken in RTL
+  .claim_col {
+    grid-column: auto / span 6;
+  }
+
+  // Full width Hero
+  .hero_tagline {
+    margin-left: 0;
   }
 
   // Drawer
@@ -56,6 +76,11 @@
     [data-drawer-element='close'] {
       left: var(--size--2rem);
       right: auto;
+    }
+
+    .drawer_text_wrap {
+      padding-right: 0;
+      padding-left: var(--size--2rem);
     }
 
     @media (max-width: variables.$breakpoint-tablet) {
@@ -73,5 +98,10 @@
   // Footer Email
   [anm-footer='email'] {
     font-family: var(--font--secondary-family);
+  }
+
+  [data-drawer-trigger='privacy-policy'] {
+    padding-right: 0;
+    padding-left: var(--size--2rem);
   }
 }

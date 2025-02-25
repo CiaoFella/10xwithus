@@ -661,13 +661,19 @@ function init() {
       at = ({ trigger: s, textToCopy: o, target: n, textNode: r, originalText: e, successMessage: t, successDuration: c, successClass: a }) => {
         let d = new ut.default(s, { text: () => o || (n ? (V(n) ? n.value : n.textContent || '') : s.textContent || '') }),
           y = !1
+
+        // Check for RTL direction
+        const isRTL = document.dir === 'rtl' || document.documentElement.getAttribute('dir') === 'rtl'
+        // Set default success message based on direction
+        const defaultSuccessMessage = isRTL ? 'تم النسخ!' : 'Copied!'
+
         return (
           d.on('success', T => {
             T.clearSelection(),
               !y &&
                 ((y = !0),
                 s.classList.add(a),
-                r && t && (r.textContent = t),
+                r && (r.textContent = t || defaultSuccessMessage),
                 setTimeout(() => {
                   s.classList.remove(a), r && (r.textContent = e || ''), (y = !1)
                 }, c))

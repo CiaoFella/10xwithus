@@ -17,18 +17,30 @@ function init() {
 
   let textElements = []
   textWrappers?.forEach(wrapper => {
-    const headlines = wrapper.querySelectorAll('[data-drawer-element=headline]')
     const texts = wrapper.querySelectorAll('[data-drawer-element=text]')
-    const richTexts = wrapper.querySelectorAll('[data-drawer-element=rich-text]')
+    const richTexts = wrapper.querySelectorAll('.w-richtext')
 
     const textSplit = new SplitType(texts, { types: 'lines' })
 
     const richTextChildren = []
     richTexts.forEach(richText => {
-      richTextChildren.push(richText.children)
-    })
+      if (richText.classList.contains('w-richtext')) {
+        const directChildren = Array.from(richText.children)
 
-    textElements = [...textElements, ...headlines, ...textSplit.lines, ...richTextChildren]
+        directChildren.forEach(child => {
+          if (child.tagName === 'UL' || child.tagName === 'OL') {
+            richTextChildren.push(...Array.from(child.children))
+          } else {
+            richTextChildren.push(child)
+          }
+        })
+      } else {
+        richTextChildren.push(richText.children)
+      }
+    })
+    console.log(richTextChildren)
+
+    textElements = [...textElements, ...textSplit.lines, ...richTextChildren.flat()]
   })
 
   const mainHeadlineSplit = new SplitType(mainHeadline, { types: 'lines' })
@@ -65,18 +77,29 @@ function init() {
 
           let activeTextElements = []
           activeTextWrappers?.forEach(wrapper => {
-            const headlines = wrapper.querySelectorAll('[data-drawer-element=headline]')
             const texts = wrapper.querySelectorAll('[data-drawer-element=text]')
-            const richTexts = wrapper.querySelectorAll('[data-drawer-element=rich-text]')
+            const richTexts = wrapper.querySelectorAll('.w-richtext')
 
             const textSplit = new SplitType(texts, { types: 'lines' })
 
             const richTextChildren = []
             richTexts.forEach(richText => {
-              richTextChildren.push(richText.children)
+              if (richText.classList.contains('w-richtext')) {
+                const directChildren = Array.from(richText.children)
+
+                directChildren.forEach(child => {
+                  if (child.tagName === 'UL' || child.tagName === 'OL') {
+                    richTextChildren.push(...Array.from(child.children))
+                  } else {
+                    richTextChildren.push(child)
+                  }
+                })
+              } else {
+                richTextChildren.push(richText.children)
+              }
             })
 
-            activeTextElements = [...activeTextElements, ...headlines, ...textSplit.lines, ...richTextChildren]
+            activeTextElements = [...activeTextElements, ...textSplit.lines, ...richTextChildren.flat()]
           })
 
           const activeMainHeadlineSplit = new SplitType(activeMainHeadline, { types: 'lines' })
